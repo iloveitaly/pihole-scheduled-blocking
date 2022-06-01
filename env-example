@@ -1,0 +1,10 @@
+
+# without this, `pi.hole` magic DNS may not be available
+# `ifconfig eth0 | rg 'inet ([0-9.]+) ' -r '$1' -o`
+FTLCONF_REPLY_ADDR4='192.168.7.35'
+
+# replace with your own timezone
+TZ: 'America/Denver'
+
+# replace with a strong password
+WEBPASSWORD='password'

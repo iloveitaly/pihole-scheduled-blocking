@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  pihole:
+    container_name: pihole
+    image: pihole-scheduled-blocking:latest
+    restart: always
+    env_file: .env
+
+    # We'll use host networking simply because it is way easier to setup.
+    network_mode: host
+
+    # this is a very important line: if you bind the individual folders the data in the container
+    # will NOT be copied which nullifies most of the `install.sh` setup. You must use a named volume.
+    volumes:
+      - pihole-config:/etc/
+
+volumes:
+  pihole-config:
