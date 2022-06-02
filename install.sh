@@ -8,10 +8,18 @@ apt-get install -y --no-install-recommends nano
 apt-get clean;
 
 # it's hard to tell how many uniques are across these lists, but it doesn't hurt to include them all
-echo "https://blocklistproject.github.io/Lists/porn.txt
+# /etc/pihole/adlists.list isn't used anymore: https://discourse.pi-hole.net/t/adding-blocklist-urls-to-the-gravity-db-from-the-command-line/49694
+blocklists=(
+https://blocklistproject.github.io/Lists/porn.txt
 https://blocklistproject.github.io/Lists/ads.txt
 https://blocklistproject.github.io/Lists/malware.txt
-http://sbc.io/hosts/alternates/gambling-porn/hosts" >> /etc/pihole/adlists.list
+http://sbc.io/hosts/alternates/gambling-porn/hosts
+)
+
+for blocklist in ${blocklists[@]}; do
+  sudo sqlite3 /etc/pihole/gravity.db \
+    "INSERT INTO adlist (address, enabled) VALUES ('$blocklist', 1);"
+done
 
 pihole -b regex '.;querytype=HTTPS' --comment "Block DNS over HTTP"
 
@@ -25,7 +33,6 @@ latinum.amazon.com
 )
 
 for domain in ${alexa_domains[@]}; do
-  echo $domain
   pihole whitelist $domain --comment "blocked by cron"
   sleep 1
 done
