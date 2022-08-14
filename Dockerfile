@@ -1,4 +1,5 @@
 # Usage:
+#   docker pull pihole/pihole
 #   docker build -t pihole-scheduled-blocker .
 #   docker run -it pihole-scheduled-blocker bash
 #   docker exec -it pihole bash
