@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - 'master'
+  schedule:
+    # run every month to rebuild on the latest pihole
+    - cron: '0 0 1 * *'
 
 jobs:
   docker:
