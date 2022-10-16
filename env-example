@@ -4,7 +4,7 @@
 FTLCONF_REPLY_ADDR4='192.168.7.35'
 
 # replace with your own timezone
-TZ: 'America/Denver'
+TZ='America/Denver'
 
 # replace with a strong password
 WEBPASSWORD='password'

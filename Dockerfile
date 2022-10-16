@@ -3,6 +3,7 @@
 #   docker build -t pihole-scheduled-blocker .
 #   docker run -it pihole-scheduled-blocker bash
 #   docker exec -it pihole bash
+#   docker builder prune --all
 
 FROM pihole/pihole:latest
 
