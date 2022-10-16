@@ -8,11 +8,13 @@ It also blocks DNS over HTTPS, blocks a wider array of sites by default (porn, g
 
 https://hub.docker.com/r/iloveitaly/pihole-scheduled-blocking
 
-Note that if you update the image you may need to remove the volume completely if you are using the docker-compose file. This is because we mount `/etc` to a volume and if the image update assumes a fully-updated `/etc` you will run into weird issues.
+Note that if you update the image you may need to remove the volume completely if you are using `docker-compose.yml`. This is because we mount `/etc` to a volume and if the image update assumes a fully-updated `/etc` you will run into weird issues.
 
 ## Customization
 
 * You can override the `blocklist` file
+* You can override the `whitelist` file
+* Check out the ENV definitions in the Dockerfile to customize the cron schedule
 
 ## Development
 
