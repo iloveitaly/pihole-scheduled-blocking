@@ -10,6 +10,14 @@ https://hub.docker.com/r/iloveitaly/pihole-scheduled-blocking
 
 Note that if you update the image you may need to remove the volume completely if you are using `docker-compose.yml`. This is because we mount `/etc` to a volume and if the image update assumes a fully-updated `/etc` you will run into weird issues.
 
+### Manual Override
+
+In some scenarios, the block/allow scripts may glitch out and leave your blocking in an undesired state. Here's how to manually run a command to fix this:
+
+```shell
+docker compose exec pihole ./allow.sh
+```
+
 ## Customization
 
 * You can override the `blocklist` file
