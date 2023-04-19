@@ -31,6 +31,7 @@ jobs:
         with:
           push: true
           platforms: linux/arm64
+          # TODO we should push to different tags based on the pihole version
           tags: iloveitaly/pihole-scheduled-blocking:latest
       -
         name: Update repo description
@@ -39,3 +40,5 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           short-description: ${{ github.event.repository.description }}
+
+      - uses: gautamkrishnar/keepalive-workflow@v1
