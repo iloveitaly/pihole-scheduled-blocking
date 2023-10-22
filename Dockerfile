@@ -8,6 +8,7 @@
 FROM pihole/pihole:latest
 
 LABEL maintainer="Michael Bianco <mike@mikebian.co>"
+LABEL org.opencontainers.image.source=https://github.com/iloveitaly/pihole-scheduled-blocking
 
 COPY . ./
 
