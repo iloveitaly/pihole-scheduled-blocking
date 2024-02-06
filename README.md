@@ -6,7 +6,9 @@ It also blocks DNS over HTTPS, blocks a wider array of sites by default (porn, g
 
 ## Usage
 
-https://hub.docker.com/r/iloveitaly/pihole-scheduled-blocking
+Best way to use this is via `docker-compose`. Here's an example [docker-compose.yml](./docker-compose.yml) file.
+
+[Here's the image on docker hub.](https://hub.docker.com/r/iloveitaly/pihole-scheduled-blocking)
 
 Note that if you update the image you may need to remove the volume completely if you are using `docker-compose.yml`. This is because we mount `/etc` to a volume and if the image update assumes a fully-updated `/etc` you will run into weird issues.
 

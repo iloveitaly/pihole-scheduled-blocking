@@ -31,7 +31,6 @@ pihole -b regex '.;querytype=HTTPS' --comment "Block DNS over HTTP"
 # filter out all comments and blank lines in the whitelist file
 whitelistDomains=$(cat ./allowlist | grep -v '^#' | grep -v '^$')
 
-
 for domain in ${whitelistDomains[@]}; do
   pihole whitelist $domain --comment "in explicit allowlist"
   sleep 1

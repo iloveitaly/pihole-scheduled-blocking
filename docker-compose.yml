@@ -3,7 +3,7 @@ version: "3.8"
 services:
   pihole:
     container_name: pihole
-    image: pihole-scheduled-blocking:latest
+    image: iloveitaly/pihole-scheduled-blocking:latest
     restart: always
     env_file: .env
 
