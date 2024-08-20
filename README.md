@@ -4,6 +4,8 @@ As part of my [digital minimalism kick](https://mikebian.co/tag/digital-minimali
 
 It also blocks DNS over HTTPS, blocks a wider array of sites by default (porn, gambling, malware, etc), and allows alexa to work even if you schedule amazon.com to be blocked.
 
+DNS is configured to use [Quad9](https://www.quad9.net/service/service-addresses-and-features).
+
 ## Usage
 
 Best way to use this is via `docker-compose`. Here's an example [docker-compose.yml](./docker-compose.yml) file.

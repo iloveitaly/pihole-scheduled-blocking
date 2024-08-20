@@ -10,12 +10,12 @@ apt-get clean
 # https://github.com/blocklistproject/Lists
 # it's hard to tell how many uniques are across these lists, but it doesn't hurt to include them all
 blocklists=(
-https://blocklistproject.github.io/Lists/porn.txt
-https://blocklistproject.github.io/Lists/ads.txt
-https://blocklistproject.github.io/Lists/malware.txt
-https://blocklistproject.github.io/Lists/tiktok.txt
-https://blocklistproject.github.io/Lists/tracking.txt
-http://sbc.io/hosts/alternates/gambling-porn/hosts
+  https://blocklistproject.github.io/Lists/porn.txt
+  https://blocklistproject.github.io/Lists/ads.txt
+  https://blocklistproject.github.io/Lists/malware.txt
+  https://blocklistproject.github.io/Lists/tiktok.txt
+  https://blocklistproject.github.io/Lists/tracking.txt
+  http://sbc.io/hosts/alternates/gambling-porn/hosts
 )
 
 # /etc/pihole/adlists.list isn't used anymore: https://discourse.pi-hole.net/t/adding-blocklist-urls-to-the-gravity-db-from-the-command-line/49694
@@ -39,7 +39,11 @@ done
 pihole --wild "*.aws.amazon.com" --comment "allow all aws"
 
 # the /proc redirect ensures that cron job output goes right to stdout
-cat << EOF > /etc/cron.d/scheduled-block
+cat <<EOF >/etc/cron.d/scheduled-block
 $BLOCK_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /block.sh > /proc/1/fd/1 2>&1
 $ALLOW_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /allow.sh > /proc/1/fd/1 2>&1
 EOF
+
+# set upstream DNS servers to Quad9
+# do NOT set ECS since that can expose your IP address to DNS servers (can impact scraping)
+pihole -a setdns 9.9.9.9,149.112.112.112,2620:fe::fe,2620:fe::9
