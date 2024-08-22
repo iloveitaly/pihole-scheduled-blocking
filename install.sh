@@ -44,6 +44,17 @@ $BLOCK_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /block.sh > /p
 $ALLOW_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /allow.sh > /proc/1/fd/1 2>&1
 EOF
 
-# set upstream DNS servers to Quad9
+# set upstream DNS servers to Quad9 and CF as secondary
 # do NOT set ECS since that can expose your IP address to DNS servers (can impact scraping)
-pihole -a setdns 9.9.9.9,149.112.112.112,2620:fe::fe,2620:fe::9
+
+# why not use? `pihole -a setdns 9.9.9.9,149.112.112.112,2620:fe::fe,2620:fe::9`
+# without this, which DNS server is used is effectively random!
+# https://discourse.pi-hole.net/t/fallback-secondary-upstream-dns/33753/3
+
+cat <<EOF >/etc/dnsmasq.d/02-strict.conf
+strict-order
+server=1.0.0.1
+server=2606:4700:4700::1001
+server=9.9.9.9
+server=2620:fe::fe
+EOF
