@@ -25,9 +25,6 @@ for blocklist in ${blocklists[@]}; do
     "INSERT INTO adlist (address, enabled) VALUES ('$blocklist', 1);"
 done
 
-# blocking DNS over HTTP allows DNS-based blocking to be effective on the network
-pihole -b regex '.;querytype=HTTPS' --comment "Block DNS over HTTP"
-
 # filter out all comments and blank lines in the whitelist file
 whitelistDomains=$(cat ./allowlist | grep -v '^#' | grep -v '^$')
 
