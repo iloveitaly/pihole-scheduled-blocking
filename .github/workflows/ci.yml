@@ -8,6 +8,9 @@ on:
     # run every month to rebuild on the latest pihole
     - cron: '0 0 1 * *'
 
+permissions:
+  actions: write
+
 jobs:
   docker:
     runs-on: ubuntu-latest
