@@ -4,3 +4,11 @@ avs-alexa-14-na.amazon.com
 api.amazon.com
 api.amazonalexa.com
 latinum.amazon.com
+
+# these are banned by various blocklist, but are required for various apps to work
+ipify.org
+brightcove.com
+ada.support
+auth.split.io
+sdk.split.io
+static.ada.support
