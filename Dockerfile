@@ -13,6 +13,6 @@ LABEL org.opencontainers.image.source=https://github.com/iloveitaly/pihole-sched
 COPY . ./
 
 ENV BLOCK_TIME="0 21 * * *"
-ENV ALLOW_TIME="0 7 * * *"
+ENV ALLOW_TIME="0 8 * * *"
 
 RUN ./install.sh
