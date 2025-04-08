@@ -38,7 +38,7 @@ jobs:
           tags: iloveitaly/pihole-scheduled-blocking:latest
       -
         name: Update repo description
-        uses: peter-evans/dockerhub-description@v4.0.1
+        uses: peter-evans/dockerhub-description@v4.0.2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
