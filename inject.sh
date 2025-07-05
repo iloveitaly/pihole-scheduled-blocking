@@ -1,4 +1,6 @@
 #!/bin/sh
+# Description: Inject a line into the start.sh script before the "wait $CAPSH_PID" line.
+#              this seems like the best place to run any sort of configuration.
 
 SCRIPT_PATH="/usr/bin/start.sh"
 INJECTED_LINE="$1"
@@ -20,8 +22,5 @@ if [ -z "$LINE_NUM" ]; then
   exit 1
 fi
 
-echo "LINE:"
-echo $LINE_NUM
-echo $INJECTED_LINE
 # Insert the line before that line number
 sed -i "${LINE_NUM}i $INJECTED_LINE" "$SCRIPT_PATH"
