@@ -28,6 +28,19 @@ docker compose exec pihole ./allow.sh
 * You can override the `whitelist` file
 * Check out the ENV definitions in the Dockerfile to customize the cron schedule
 
+### Inspecting DNS Server Choices
+
+
+```
+Sep 19 07:43:18 dnsmasq[264]: started, version pi-hole-v2.90+1 cachesize 10000
+Sep 19 07:43:18 dnsmasq[264]: compile time options: IPv6 GNU-getopt no-DBus no-UBus no-i18n IDN DHCP DHCPv6 Lua TFTP no-conntrack ipset no-nftset auth cryptohash DNSSEC loop-detect inotify dumpfile
+Sep 19 07:43:18 dnsmasq[264]: using nameserver 8.8.8.8#53
+Sep 19 07:43:18 dnsmasq[264]: using nameserver 1.0.0.1#53
+Sep 19 07:43:18 dnsmasq[264]: using nameserver 2606:4700:4700::1001#53
+Sep 19 07:43:18 dnsmasq[264]: using nameserver 9.9.9.9#53
+Sep 19 07:43:18 dnsmasq[264]: using nameserver 2620:fe::fe#53
+```
+
 ## Development
 
 Some helpful commands are included in the Dockerfile. Most of the magic happens in `install.sh`

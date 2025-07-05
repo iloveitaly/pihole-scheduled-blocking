@@ -2,11 +2,6 @@
 
 set -euo pipefail
 
-# install nano so we can edit stuff in the container to debug
-apt-get update
-apt-get install -y --no-install-recommends nano
-apt-get clean
-
 # https://github.com/blocklistproject/Lists
 # it's hard to tell how many uniques are across these lists, but it doesn't hurt to include them all
 blocklists=(
@@ -20,22 +15,25 @@ blocklists=(
 
 # /etc/pihole/adlists.list isn't used anymore: https://discourse.pi-hole.net/t/adding-blocklist-urls-to-the-gravity-db-from-the-command-line/49694
 # we need to insert additional blocklists directly into the DB
-for blocklist in ${blocklists[@]}; do
-  sudo sqlite3 /etc/pihole/gravity.db \
-    "INSERT INTO adlist (address, enabled) VALUES ('$blocklist', 1);"
+for blocklist in "${blocklists[@]}"; do
+  pihole-FTL sqlite3 /etc/pihole/gravity.db \
+    "INSERT OR IGNORE INTO adlist (address, enabled) VALUES ('$blocklist', 1);"
 done
+
 
 # filter out all comments and blank lines in the whitelist file
 whitelistDomains=$(cat ./allowlist | grep -v '^#' | grep -v '^$')
 
-for domain in ${whitelistDomains[@]}; do
-  pihole whitelist $domain --comment "in explicit allowlist"
+for domain in ${whitelistDomains}; do
+  pihole allow $domain --comment "from explicit allowlist"
   sleep 1
 done
 
-pihole --wild "*.aws.amazon.com" --comment "allow all aws"
+pihole allow --wild "*.aws.amazon.com" --comment "allow all aws"
 
+# Pi-hole's cron daemon supports reading from /etc/cron.d
 # the /proc redirect ensures that cron job output goes right to stdout
+# mkdir -p /etc/cron.d
 cat <<EOF >/etc/cron.d/scheduled-block
 $BLOCK_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /block.sh > /proc/1/fd/1 2>&1
 $ALLOW_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /allow.sh > /proc/1/fd/1 2>&1
@@ -53,6 +51,7 @@ pihole -a setdns "" ""
 
 # the order of the file below used to be reversed, but it looks like it properly respects the top-to-bottom ordering now
 
+# mkdir -p /etc/dnsmasq.d
 cat <<EOF >/etc/dnsmasq.d/02-strict.conf
 strict-order
 server=2620:fe::fe
