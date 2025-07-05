@@ -1,3 +1,6 @@
+update:
+	docker pull pihole/pihole
+
 build:
 	docker build . -t pihole-scheduled-blocking-local
 
@@ -16,3 +19,6 @@ exec:
 # execute a shell on the base image to explore
 exec_base:
 	docker run --rm -it --entrypoint sh pihole/pihole:latest
+
+clean:
+	docker builder prune --all
