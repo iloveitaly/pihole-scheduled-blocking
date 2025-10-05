@@ -87,6 +87,9 @@ start() {
   printf "%b" "${versionsOutput}\\n" | sed 's/^/      /' 
   echo ""
 
+  # custom install script!
+  ./install.sh
+
   if [ "${TAIL_FTL_LOG:-1}" -eq 1 ]; then
     # Start tailing the FTL log from the most recent "FTL Started" message
     # Get the line number
