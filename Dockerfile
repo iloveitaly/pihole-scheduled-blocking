@@ -10,13 +10,17 @@ LABEL maintainer="Michael Bianco <mike@mikebian.co>"
 LABEL org.opencontainers.image.source=https://github.com/iloveitaly/pihole-scheduled-blocking
 
 # install nano so we can edit stuff in the container to debug
+# patch so we can inject patches to the install and other scripts causing us issues
 RUN apk update && \
-  apk add --no-cache nano
+  apk add --no-cache nano patch
 
 COPY . ./
 
-RUN ./inject.sh "./install.sh"
-RUN rm inject.sh
+# https://github.com/pi-hole/pi-hole/issues/6357
+
+# Apply patches to modify pihole scripts
+RUN patch /usr/bin/start.sh < patches/start.patch
+RUN patch /opt/pihole/list.sh < patches/list.patch
 
 ENV BLOCK_TIME="0 21 * * *"
 ENV ALLOW_TIME="0 8 * * *"

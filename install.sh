@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env -S -i bash
 
 set -euo pipefail
 
@@ -33,7 +33,7 @@ pihole allow --wild "*.aws.amazon.com" --comment "allow all aws"
 
 # Pi-hole's cron daemon supports reading from /etc/cron.d
 # the /proc redirect ensures that cron job output goes right to stdout
-# mkdir -p /etc/cron.d
+mkdir -p /etc/cron.d
 cat <<EOF >/etc/cron.d/scheduled-block
 $BLOCK_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /block.sh > /proc/1/fd/1 2>&1
 $ALLOW_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /allow.sh > /proc/1/fd/1 2>&1
@@ -51,7 +51,7 @@ pihole -a setdns "" ""
 
 # the order of the file below used to be reversed, but it looks like it properly respects the top-to-bottom ordering now
 
-# mkdir -p /etc/dnsmasq.d
+mkdir -p /etc/dnsmasq.d
 cat <<EOF >/etc/dnsmasq.d/02-strict.conf
 strict-order
 server=2620:fe::fe
