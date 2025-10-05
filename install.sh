@@ -59,3 +59,6 @@ server=9.9.9.9
 server=2606:4700:4700::1001
 server=1.0.0.1
 EOF
+
+# update all lists
+pihole -g
