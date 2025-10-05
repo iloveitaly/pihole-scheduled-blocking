@@ -23,9 +23,14 @@ exec_base:
 
 # extract the file that inject.sh mutates for creating patches
 extract_from_pihole:
+	docker pull pihole/pihole:latest
+
 	mkdir -p patches
 	docker run --rm --entrypoint cat pihole/pihole:latest /usr/bin/start.sh > patches/start_original.sh
+	cp patches/start_original.sh patches/start.sh
+
 	docker run --rm --entrypoint cat pihole/pihole:latest /opt/pihole/api.sh > patches/api_original.sh
+	cp patches/api_original.sh patches/api.sh
 
 clean:
 	docker builder prune --all
