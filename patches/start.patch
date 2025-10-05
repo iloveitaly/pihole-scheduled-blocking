@@ -1,0 +1,12 @@
+--- patches/start_original.sh	2025-10-05 10:52:11
++++ patches/start.sh	2025-10-05 10:58:37
+@@ -87,6 +87,9 @@
+   printf "%b" "${versionsOutput}\\n" | sed 's/^/      /' 
+   echo ""
+ 
++  # custom install script!
++  ./install.sh
++
+   if [ "${TAIL_FTL_LOG:-1}" -eq 1 ]; then
+     # Start tailing the FTL log from the most recent "FTL Started" message
+     # Get the line number
