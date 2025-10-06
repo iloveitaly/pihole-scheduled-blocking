@@ -1,4 +1,4 @@
-# Usage:
+an# Usage:
 #   docker pull pihole/pihole
 #   docker build -t pihole-scheduled-blocker .
 #   docker run -it pihole-scheduled-blocker bash
@@ -14,7 +14,8 @@ LABEL org.opencontainers.image.source=https://github.com/iloveitaly/pihole-sched
 RUN apk update && \
   apk add --no-cache nano patch
 
-COPY . ./
+RUN mkdir -p /home/pihole/scheduled-blocking
+COPY . /home/pihole/scheduled-blocking/
 
 # https://github.com/pi-hole/pi-hole/issues/6357
 

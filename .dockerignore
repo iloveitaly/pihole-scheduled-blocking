@@ -1,2 +1,6 @@
 Makefile
 .envrc
+env-example
+Dockerfile
+README.md
+LICENSE

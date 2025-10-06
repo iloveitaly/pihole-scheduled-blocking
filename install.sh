@@ -35,8 +35,8 @@ pihole allow --wild "*.aws.amazon.com" --comment "allow all aws"
 # the /proc redirect ensures that cron job output goes right to stdout
 mkdir -p /etc/cron.d
 cat <<EOF >/etc/cron.d/scheduled-block
-$BLOCK_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /block.sh > /proc/1/fd/1 2>&1
-$ALLOW_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /allow.sh > /proc/1/fd/1 2>&1
+$BLOCK_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /home/pihole/scheduled-blocking/block.sh > /proc/1/fd/1 2>&1
+$ALLOW_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /home/pihole/scheduled-blocking/allow.sh > /proc/1/fd/1 2>&1
 EOF
 
 # set upstream DNS servers to Quad9 and CF as secondary
