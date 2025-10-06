@@ -1,6 +1,8 @@
-#!/usr/bin/env -S -i bash
+#!/usr/bin/env bash
 
 set -euo pipefail
+
+echo "######### Starting Scheduled Blocking Install #########"
 
 # https://github.com/blocklistproject/Lists
 # it's hard to tell how many uniques are across these lists, but it doesn't hurt to include them all
@@ -20,6 +22,7 @@ for blocklist in "${blocklists[@]}"; do
     "INSERT OR IGNORE INTO adlist (address, enabled) VALUES ('$blocklist', 1);"
 done
 
+cd /home/pihole/scheduled-blocking
 
 # filter out all comments and blank lines in the whitelist file
 whitelistDomains=$(cat ./allowlist | grep -v '^#' | grep -v '^$')
@@ -62,3 +65,5 @@ EOF
 
 # update all lists
 pihole -g
+
+echo "######### Scheduled Blocking Install Complete #########"
