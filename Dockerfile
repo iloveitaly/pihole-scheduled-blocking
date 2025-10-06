@@ -1,4 +1,4 @@
-an# Usage:
+# Usage:
 #   docker pull pihole/pihole
 #   docker build -t pihole-scheduled-blocker .
 #   docker run -it pihole-scheduled-blocker bash
@@ -20,8 +20,8 @@ COPY . /home/pihole/scheduled-blocking/
 # https://github.com/pi-hole/pi-hole/issues/6357
 
 # Apply patches to modify pihole scripts
-RUN patch /usr/bin/start.sh < patches/start.patch
-RUN patch /opt/pihole/list.sh < patches/list.patch
+RUN patch /usr/bin/start.sh < /home/pihole/scheduled-blocking/patches/start.patch
+RUN patch /opt/pihole/list.sh < /home/pihole/scheduled-blocking/patches/list.patch
 
 ENV BLOCK_TIME="0 21 * * *"
 ENV ALLOW_TIME="0 8 * * *"
