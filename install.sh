@@ -4,6 +4,10 @@ set -euo pipefail
 
 echo "######### Starting Scheduled Blocking Install #########"
 
+# Install gronx for cron management
+cd /home/pihole/scheduled-blocking
+bash ./install-gronx.sh
+
 # https://github.com/blocklistproject/Lists
 # it's hard to tell how many uniques are across these lists, but it doesn't hurt to include them all
 blocklists=(
@@ -37,9 +41,13 @@ pihole allow --wild "*.aws.amazon.com" --comment "allow all aws"
 # Pi-hole's cron daemon supports reading from /etc/cron.d
 # the /proc redirect ensures that cron job output goes right to stdout
 mkdir -p /etc/cron.d
+# cat <<EOF >/etc/cron.d/scheduled-block
+# $BLOCK_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /home/pihole/scheduled-blocking/block.sh > /proc/1/fd/1 2>&1
+# $ALLOW_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /home/pihole/scheduled-blocking/allow.sh > /proc/1/fd/1 2>&1
+# EOF
 cat <<EOF >/etc/cron.d/scheduled-block
-$BLOCK_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /home/pihole/scheduled-blocking/block.sh > /proc/1/fd/1 2>&1
-$ALLOW_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /home/pihole/scheduled-blocking/allow.sh > /proc/1/fd/1 2>&1
+$BLOCK_TIME root /bin/bash /home/pihole/scheduled-blocking/block.sh
+$ALLOW_TIME root /bin/bash /home/pihole/scheduled-blocking/allow.sh
 EOF
 
 # set upstream DNS servers to Quad9 and CF as secondary
@@ -65,5 +73,7 @@ EOF
 
 # update all lists
 pihole -g
+
+nohup /usr/local/bin/gronx -file /etc/cron.d/scheduled-block -verbose > /proc/1/fd/1 2>&1 &
 
 echo "######### Scheduled Blocking Install Complete #########"

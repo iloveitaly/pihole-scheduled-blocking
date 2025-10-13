@@ -4,6 +4,8 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
+echo "Running block.sh"
+
 blockDomains=$(<./blocklist)
 
 for domain in ${blockDomains[@]}; do
