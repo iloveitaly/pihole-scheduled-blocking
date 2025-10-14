@@ -4,6 +4,10 @@ update:
 build:
 	docker build . -t pihole-scheduled-blocking-local
 
+# run shell in the original container image
+run_raw_shell:
+	docker run --rm -it --entrypoint sh pihole/pihole:latest
+
 run_shell: build
 # the default entrypoint is `start.sh`
 # it's located at ./usr/bin/start.sh
