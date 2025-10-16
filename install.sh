@@ -46,8 +46,8 @@ mkdir -p /etc/cron.d
 # $ALLOW_TIME root PATH="$PATH:/usr/sbin:/usr/local/bin/" /bin/bash /home/pihole/scheduled-blocking/allow.sh > /proc/1/fd/1 2>&1
 # EOF
 cat <<EOF >/etc/cron.d/scheduled-block
-$BLOCK_TIME root /bin/bash /home/pihole/scheduled-blocking/block.sh
-$ALLOW_TIME root /bin/bash /home/pihole/scheduled-blocking/allow.sh
+$BLOCK_TIME /home/pihole/scheduled-blocking/block.sh
+$ALLOW_TIME /home/pihole/scheduled-blocking/allow.sh
 EOF
 
 # set upstream DNS servers to Quad9 and CF as secondary
