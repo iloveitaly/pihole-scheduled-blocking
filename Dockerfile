@@ -17,7 +17,6 @@ RUN apk update && \
 RUN mkdir -p /home/pihole/scheduled-blocking
 COPY . /home/pihole/scheduled-blocking/
 
-
 ENV BLOCK_TIME="0 21 * * *"
 ENV ALLOW_TIME="0 8 * * *"
 
