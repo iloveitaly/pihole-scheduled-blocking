@@ -70,6 +70,7 @@ EOF
 # update all lists
 pihole -g
 
+# nohup to keep it running after the install script ends
 nohup /usr/local/bin/gronx -file /etc/cron.d/scheduled-block &
 
 echo "######### Scheduled Blocking Install Complete #########"

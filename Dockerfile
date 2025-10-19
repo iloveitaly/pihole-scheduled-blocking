@@ -1,9 +1,3 @@
-# Usage:
-#   docker pull pihole/pihole
-#   docker build -t pihole-scheduled-blocker .
-#   docker run -it pihole-scheduled-blocker bash
-#   docker exec -it pihole bash
-
 FROM pihole/pihole:latest
 
 LABEL maintainer="Michael Bianco <mike@mikebian.co>"
@@ -17,7 +11,7 @@ RUN apk update && \
 RUN mkdir -p /home/pihole/scheduled-blocking
 COPY . /home/pihole/scheduled-blocking/
 
-ENV BLOCK_TIME="0 21 * * *"
+ENV BLOCK_TIME="0 20 * * *"
 ENV ALLOW_TIME="0 8 * * *"
 
 # https://github.com/pi-hole/pi-hole/issues/6357
