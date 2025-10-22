@@ -5,6 +5,8 @@ api.amazon.com
 api.amazonalexa.com
 latinum.amazon.com
 dss-na.amazon.com
+dcape-na.amazon.com
+msh.amazon.com
 
 # these are banned by various blocklist, but are required for various apps to work
 ipify.org
