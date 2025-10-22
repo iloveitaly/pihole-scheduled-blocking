@@ -4,6 +4,7 @@ avs-alexa-14-na.amazon.com
 api.amazon.com
 api.amazonalexa.com
 latinum.amazon.com
+dss-na.amazon.com
 
 # these are banned by various blocklist, but are required for various apps to work
 ipify.org
