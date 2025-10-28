@@ -8,3 +8,8 @@ TZ='America/Denver'
 
 # replace with a strong password
 WEBPASSWORD='password'
+
+# Optional: Customize cron schedules for blocking/allowing domains
+# BLOCK_TIME='0 20 * * *'  # Block domains at 8pm (default)
+# ALLOW_TIME='0 8 * * *'   # Allow domains at 8am (default)
+# ENABLE_BLOCKING_TIME='0 0 * * *'  # Re-enable Pi-hole blocking at midnight (default)

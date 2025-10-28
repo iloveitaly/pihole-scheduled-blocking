@@ -28,6 +28,16 @@ docker compose exec pihole ./allow.sh
 * You can override the `whitelist` file
 * Check out the ENV definitions in the Dockerfile to customize the cron schedule
 
+### Scheduled Scripts
+
+The container includes three scheduled scripts:
+
+1. **Block Script** (`BLOCK_TIME`): Blocks domains listed in the `blocklist` file (default: 8pm daily)
+2. **Allow Script** (`ALLOW_TIME`): Allows domains listed in the `blocklist` file (default: 8am daily)
+3. **Enable Blocking Script** (`ENABLE_BLOCKING_TIME`): Re-enables Pi-hole blocking globally (default: midnight daily)
+
+The enable blocking script is helpful if you disable Pi-hole blocking completely for testing a website and forget to re-enable it. It will automatically re-enable blocking at the scheduled time.
+
 ### Inspecting DNS Server Choices
 
 

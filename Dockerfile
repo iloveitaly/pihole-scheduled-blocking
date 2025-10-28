@@ -13,6 +13,7 @@ COPY . /home/pihole/scheduled-blocking/
 
 ENV BLOCK_TIME="0 20 * * *"
 ENV ALLOW_TIME="0 8 * * *"
+ENV ENABLE_BLOCKING_TIME="0 0 * * *"
 
 # https://github.com/pi-hole/pi-hole/issues/6357
 # Apply patches to modify pihole scripts
