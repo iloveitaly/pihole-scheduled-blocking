@@ -1,7 +1,7 @@
 update:
 	docker pull pihole/pihole
 
-build:
+build: update
 	docker build . -t pihole-scheduled-blocking-local
 
 # run shell in the original container image
