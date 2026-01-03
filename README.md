@@ -4,8 +4,6 @@ As part of my [digital minimalism kick](https://mikebian.co/tag/digital-minimali
 
 It also blocks DNS over HTTPS, blocks a wider array of sites by default (porn, gambling, malware, etc), and allows alexa to work even if you schedule amazon.com to be blocked.
 
-DNS is configured to use [Quad9](https://www.quad9.net/service/service-addresses-and-features).
-
 ## Usage
 
 Best way to use this is via `docker-compose`. Here's an example [docker-compose.yml](./docker-compose.yml) file.
@@ -13,6 +11,14 @@ Best way to use this is via `docker-compose`. Here's an example [docker-compose.
 [Here's the image on docker hub.](https://hub.docker.com/r/iloveitaly/pihole-scheduled-blocking)
 
 Note that if you update the image you may need to remove the volume completely if you are using `docker-compose.yml`. This is because we mount `/etc` to a volume and if the image update assumes a fully-updated `/etc` you will run into weird issues.
+
+### Specific DNS Servers
+
+On a default pihole setup, Google's DNS servers are used. This is fine for most people, but google's DNS does *not* have the same
+security guarantees as [quad9](https://www.quad9.net/service/service-addresses-and-features). Specifically, [your IP address could leak](https://www.dnsleaktest.com) and this can
+impact your IP reputation especially if you attempting to run scraping operations from your home network.
+
+This build uses quad9 to avoid these issues.
 
 ### Manual Override
 
