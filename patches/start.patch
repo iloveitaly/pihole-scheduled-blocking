@@ -1,16 +1,27 @@
---- patches/start_original.sh	2025-10-05 10:52:11
-+++ patches/start.sh	2025-10-06 08:16:06
-@@ -87,6 +87,13 @@
-   printf "%b" "${versionsOutput}\\n" | sed 's/^/      /'
-   echo ""
-
-+  # custom install script!
-+  if ! /home/pihole/scheduled-blocking/install.sh; then
-+    echo "  [✗] Scheduled blocking install.sh failed!"
-+    exit 1
-+  fi
-+  echo "  [✓] Scheduled blocking install.sh completed successfully"
+--- patches/start_original.sh	2026-01-03 16:50:24
++++ patches/start.sh	2026-01-03 16:52:28
+@@ -87,9 +87,16 @@
+     local versionsOutput
+     versionsOutput=$(pihole -v)
+     echo "  [i] Version info:"
+-    printf "%b" "${versionsOutput}\\n" | sed 's/^/      /'
++    printf "%b" "${versionsOutput}\n" | sed 's/^/      /'
+     echo ""
+ 
++    # custom install script!
++    if ! /home/pihole/scheduled-blocking/install.sh; then
++      echo "  [✗] Scheduled blocking install.sh failed!"
++      exit 1
++    fi
++    echo "  [✓] Scheduled blocking install.sh completed successfully"
 +
-   if [ "${TAIL_FTL_LOG:-1}" -eq 1 ]; then
-     # Start tailing the FTL log from the most recent "FTL Started" message
-     # Get the line number
+     if [ "${TAIL_FTL_LOG:-1}" -eq 1 ]; then
+         # Start tailing the FTL log file from the EOF position we recorded on container start
+         tail -F -c +$((startFrom + 1)) -- "${FTLlogFile}" &
+@@ -146,4 +153,4 @@
+ 
+ }
+ 
+-start
++start
+\ No newline at end of file
