@@ -33,13 +33,9 @@ extract_from_pihole:
 	docker run --rm --entrypoint cat pihole/pihole:latest /usr/bin/start.sh > patches/start_original.sh
 	cp patches/start_original.sh patches/start.sh
 
-	docker run --rm --entrypoint cat pihole/pihole:latest /opt/pihole/list.sh > patches/list_original.sh
-	cp patches/list_original.sh patches/list.sh
-
 # generate a patch file from the differences between original and modified files
 generate_patch:
 	diff -u patches/start_original.sh patches/start.sh > patches/start.patch || true
-	diff -u patches/list_original.sh patches/list.sh > patches/list.patch || true
 
 clean:
 	docker builder prune --all
