@@ -29,12 +29,15 @@ done
 cd /home/pihole/scheduled-blocking
 
 # filter out all comments and blank lines in the whitelist file
-whitelistDomains=$(cat ./allowlist | grep -v '^#' | grep -v '^$')
-
-for domain in ${whitelistDomains}; do
-  pihole allow $domain --comment "from explicit allowlist"
+# quote each domain so wildcard entries like *.sentry.io are not glob-expanded
+while IFS= read -r domain; do
+  if [[ "$domain" == *"*"* ]]; then
+    pihole allow --wild "$domain" --comment "from explicit allowlist"
+  else
+    pihole allow "$domain" --comment "from explicit allowlist"
+  fi
   sleep 1
-done
+done < <(grep -v '^#' ./allowlist | grep -v '^$')
 
 pihole allow --wild "*.aws.amazon.com" --comment "allow all aws"
 

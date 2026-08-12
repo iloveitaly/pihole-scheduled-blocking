@@ -18,3 +18,7 @@ static.ada.support
 api.radar.io
 
 blink.com
+
+# error reporting / monitoring (apex + all subdomains)
+sentry.io
+*.sentry.io
