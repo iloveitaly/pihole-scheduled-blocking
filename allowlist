@@ -22,3 +22,6 @@ blink.com
 # error reporting / monitoring (apex + all subdomains)
 sentry.io
 *.sentry.io
+
+# email tracking that I want to work
+email.mg.mercury.com
