@@ -39,6 +39,14 @@ while IFS= read -r domain; do
   sleep 1
 done < <(grep -v '^#' ./allowlist | grep -v '^$')
 
+# allow-regex is separate from allowlist. `pihole allow` and `pihole allow --wild`
+# do not store a POSIX allow regex; on this v6 CLI `--wild` writes a regex deny.
+while IFS= read -r pattern; do
+  pihole --allow-regex "$pattern" --comment "from allow-regex" \
+    || echo "allow-regex already present or rejected: $pattern"
+  sleep 1
+done < <(grep -v '^#' ./allow-regex | grep -v '^$')
+
 pihole allow --wild "*.aws.amazon.com" --comment "allow all aws"
 
 # Pi-hole's cron daemon supports reading from /etc/cron.d
