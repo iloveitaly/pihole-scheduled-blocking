@@ -47,8 +47,6 @@ while IFS= read -r pattern; do
   sleep 1
 done < <(grep -v '^#' ./allow-regex | grep -v '^$')
 
-pihole allow --wild "*.aws.amazon.com" --comment "allow all aws"
-
 # Pi-hole's cron daemon supports reading from /etc/cron.d
 # the /proc redirect ensures that cron job output goes right to stdout
 mkdir -p /etc/cron.d

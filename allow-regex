@@ -1,3 +1,4 @@
 # meta.ai CNAMEs to star.<cluster>.facebook.com. c10r is the cluster label and changes.
 # star-mini is the www.facebook.com / m.facebook.com edge and must stay denied.
 ^star(\.[a-z0-9-]+)+\.facebook\.com$
+(\.|^)aws\.amazon\.com$
