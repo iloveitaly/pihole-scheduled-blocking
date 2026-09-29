@@ -4,7 +4,7 @@ set -euo pipefail
 
 echo "######### Starting Scheduled Blocking Install #########"
 
-# Install gronx for cron management
+# Install tasker (gronx) for cron management
 cd /home/pihole/scheduled-blocking
 bash ./install-gronx.sh
 
@@ -39,13 +39,13 @@ while IFS= read -r domain; do
   sleep 1
 done < <(grep -v '^#' ./allowlist | grep -v '^$')
 
-# allow-regex is separate from allowlist. `pihole allow` and `pihole allow --wild`
+# allowlist-regex is separate from allowlist. `pihole allow` and `pihole allow --wild`
 # do not store a POSIX allow regex; on this v6 CLI `--wild` writes a regex deny.
 while IFS= read -r pattern; do
-  pihole --allow-regex "$pattern" --comment "from allow-regex" \
-    || echo "allow-regex already present or rejected: $pattern"
+  pihole --allow-regex "$pattern" --comment "from allowlist-regex" \
+    || echo "allowlist-regex already present or rejected: $pattern"
   sleep 1
-done < <(grep -v '^#' ./allow-regex | grep -v '^$')
+done < <(grep -v '^#' ./allowlist-regex | grep -v '^$')
 
 # Pi-hole's cron daemon supports reading from /etc/cron.d
 # the /proc redirect ensures that cron job output goes right to stdout
@@ -81,6 +81,6 @@ EOF
 pihole -g
 
 # nohup to keep it running after the install script ends
-nohup /usr/local/bin/gronx -file /etc/cron.d/scheduled-block &
+nohup /usr/local/bin/tasker -file /etc/cron.d/scheduled-block &
 
 echo "######### Scheduled Blocking Install Complete #########"
