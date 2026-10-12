@@ -2,3 +2,7 @@
 # star-mini is the www.facebook.com / m.facebook.com edge and must stay denied.
 ^star(\.[a-z0-9-]+)+\.facebook\.com$
 (\.|^)aws\.amazon\.com$
+# Muse's hatch.metaaivm.com CNAMEs to edge-metaclaw-http.<cluster>.facebook.com,
+# which the facebook.com wildcard deny would block. Allow the whole domain so
+# that allow match stops CNAME inspection. facebook.com itself stays denied.
+(\.|^)metaaivm\.com$
