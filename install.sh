@@ -71,9 +71,11 @@ pihole -a setdns "" ""
 mkdir -p /etc/dnsmasq.d
 cat <<EOF >/etc/dnsmasq.d/02-strict.conf
 strict-order
-server=2620:fe::fe
+# IPv6 upstream servers are commented out because IPv6 is not used/routed on the local network.
+# With strict-order, unreachable IPv6 resolvers cause connection error warnings on every query before falling back to IPv4.
+# server=2620:fe::fe
 server=9.9.9.9
-server=2606:4700:4700::1001
+# server=2606:4700:4700::1001
 server=1.0.0.1
 EOF
 
