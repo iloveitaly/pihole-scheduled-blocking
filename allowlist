@@ -9,6 +9,8 @@ dcape-na.amazon.com
 msh.amazon.com
 
 # these are banned by various blocklist, but are required for various apps to work
+# tracking.txt blocks this apex only; app/us/eu/ingest hosts are not listed
+posthog.com
 ipify.org
 brightcove.com
 ada.support
