@@ -6,3 +6,27 @@
 # which the facebook.com wildcard deny would block. Allow the whole domain so
 # that allow match stops CNAME inspection. facebook.com itself stays denied.
 (\.|^)metaaivm\.com$
+# Other Muse names. An allow match stops CNAME inspection, so a facebook.com
+# edge target does not re-block the lookup. Pi-hole allow regex is POSIX ERE
+# (no lookaheads); a trailing $ keeps the match on that domain.
+(\.|^)muse\.ai$
+(\.|^)meta\.ai$
+(\.|^)museai\.com$
+(\.|^)hatch\.club$
+(\.|^)ecto1\.ai$
+(\.|^)hatch\.one$
+(\.|^)customer\.prod\.willow606\.com$
+(\.|^)ecto1usercontent\.com$
+(\.|^)metaaiusercontent\.com$
+^meta-agents-apps\.workers\.dev$
+^meta-ohttp-(config|relay)-(prod|dev)\.fastly-edge\.com$
+^meta(\.hpke-keys)?\.privacy-gateway\.cloudflare\.com$
+# Facebook hosts Muse calls directly. The app and website stay denied:
+# facebook.com, www, m, web, mbasic, touch, mobile, and star-mini.
+^(secure|api|b-api|graph|b-graph|gateway|gateway-fallback|genai-hatch-realtime|genai-kepler-realtime|genai-waveform-realtime|meta-ai-realtime|wearable-ai-realtime|mo-realtime|shortwave|edge-stun)(\.[a-z0-9-]+)*\.facebook\.com$
+^edge-metaclaw[a-z0-9-]*(\.[a-z0-9-]+)+\.facebook\.com$
+^connect\.facebook\.net$
+# Account and graph hosts on meta.com. www.meta.com is not included.
+(\.|^)(auth|accounts|accountscenter|graph|gateway-edge|help)\.meta\.com$
+# PostHog app, regional API, and ingest hosts.
+(\.|^)posthog\.com$
